@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: monitoring
+  datasource:
+    url: jdbc:postgresql://localhost:5432/monitoring
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true

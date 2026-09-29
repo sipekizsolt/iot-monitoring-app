@@ -8,6 +8,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -26,6 +28,12 @@ public class Sensor {
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private SensorType type;
+
+  @OneToMany(mappedBy = "sensor")
+  private List<Alert> alerts = new ArrayList<>();
+
+  @OneToMany(mappedBy = "sensor")
+  private List<SensorReading> sensorReadings = new ArrayList<>();
 
   public Sensor() {}
 
@@ -59,22 +67,22 @@ public class Sensor {
   }
 
   public List<Alert> getAlerts() {
-    //TODO: Task 2
-    return null;
+    return alerts;
+    //return null;
   }
 
   public void setAlerts(List<Alert> alerts) {
-    //TODO: Task 2
+    this.alerts = alerts;
   }
 
   public List<SensorReading> getSensorReadings() {
-    //TODO: Task 2
-    return null;
+    return sensorReadings;
+    //return null;
   }
 
   public void setSensorReadings(
       List<SensorReading> sensorReadings) {
-    //TODO: Task 2
+      this.sensorReadings = sensorReadings;
   }
 
   @Override

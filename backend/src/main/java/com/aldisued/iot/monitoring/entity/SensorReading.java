@@ -68,7 +68,6 @@ public class SensorReading {
 
   public Sensor getSensor() {
     return sensor;
-    // return null;
   }
 
   public void setSensor(Sensor sensor) {

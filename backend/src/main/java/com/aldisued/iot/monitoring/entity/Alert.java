@@ -67,7 +67,6 @@ public class Alert {
 
   public Sensor getSensor() {
     return sensor;
-    //return null;
   }
 
   public void setSensor(Sensor sensor) {

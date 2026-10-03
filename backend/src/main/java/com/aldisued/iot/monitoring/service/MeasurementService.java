@@ -1,5 +1,7 @@
 package com.aldisued.iot.monitoring.service;
 
+import com.aldisued.iot.monitoring.dto.SensorReadingDto;
+import com.aldisued.iot.monitoring.entity.SensorReading;
 import com.aldisued.iot.monitoring.entity.SensorType;
 import com.aldisued.iot.monitoring.repository.SensorReadingRepository;
 import java.time.LocalDateTime;
@@ -23,8 +25,16 @@ public class MeasurementService {
   }
 
   public Optional<Double> getAverageTemperature(LocalDateTime from, LocalDateTime to) {
-    // TODO: Task 7
-    return Optional.empty();
+    List<SensorReading> readings = sensorReadingRepository
+        .findBySensor_TypeAndTimestampBetween(SensorType.TEMPERATURE, from, to);
+
+    if (readings.isEmpty()) {
+        return Optional.empty();
+    }
+
+    double sum = readings.stream().mapToDouble(SensorReading::getValue).sum();
+
+    return Optional.of(sum / readings.size());
   }
 
 }

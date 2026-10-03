@@ -1,10 +1,12 @@
 package com.aldisued.iot.monitoring.service;
 
 import com.aldisued.iot.monitoring.dto.AlertDto;
+import com.aldisued.iot.monitoring.dto.SensorResponseDto;
 import com.aldisued.iot.monitoring.entity.Alert;
 import com.aldisued.iot.monitoring.repository.AlertRepository;
 import com.aldisued.iot.monitoring.repository.SensorRepository;
 import java.util.UUID;
+import java.util.List;
 import java.time.LocalDateTime;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,12 @@ public class AlertService {
   public Alert saveAlert(AlertDto alertDto) {
     // TODO: Task 6
     return null;
+  }
+
+  public List<AlertDto> getAlerts() {
+      return alertRepository.findAll().stream()
+      .map(alert -> new AlertDto(alert.getSensor().getId(), alert.getMessage(), alert.getTimestamp()))
+      .toList();
   }
 
   public AlertDto findLastAlertBySensorId(UUID sensorId) {

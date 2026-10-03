@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
+import java.util.List;
 import com.aldisued.iot.monitoring.dto.AlertDto;
 
 @RestController
@@ -18,6 +19,11 @@ public class AlertController {
   public AlertController(AlertService alertService) {
     this.alertService = alertService;
   }
+
+    @GetMapping
+    public List<AlertDto> getAlerts() {
+        return this.alertService.getAlerts();
+    }
 
   @GetMapping("/latest")
   public AlertDto getLatestAlert(@RequestParam UUID sensorId) {

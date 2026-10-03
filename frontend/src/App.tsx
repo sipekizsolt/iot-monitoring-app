@@ -1,124 +1,71 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
-import { SensorsPage } from './pages/sensorsPage'
+import { useState } from 'react';
+import { SensorsPage } from './pages/SensorsPage';
+import { SensorReadingsPage } from './pages/SensorReadingsPage';
+import { AlertsPage } from './pages/AlertsPage';
+import { useSensors } from './hooks/useSensors';
+import { useAlerts } from './hooks/useAlerts';
+import './App.scss';
 
-function App() {
-  const [count, setCount] = useState(0)
+type View = 'sensors' | 'reading' | 'alerts';
+
+const NAV_ITEMS: { id: View; label: string }[] = [
+  { id: 'sensors', label: 'Sensors' },
+  { id: 'reading', label: 'Add Reading' },
+  { id: 'alerts', label: 'Alerts' },
+];
+
+export default function App() {
+  const [view, setView] = useState<View>('sensors');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { sensors } = useSensors();
+  const { alerts } = useAlerts();
+
+  const navigateTo = (v: View) => {
+    setView(v);
+    setMenuOpen(false);
+  };
 
   return (
-    <>
-      <section id="center">
-        <SensorsPage />
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app">
+      <header className="header">
+        <div className="header__brand">
+          <span className="header__name">iot monitor</span>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
+
         <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+          className={`hamburger ${menuOpen ? 'hamburger--open' : ''}`}
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
         >
-          Count is {count}
+          <span /><span /><span />
         </button>
-      </section>
 
-      <div className="ticks"></div>
+        <nav className={`nav ${menuOpen ? 'nav--open' : ''}`} aria-label="Main navigation">
+          {NAV_ITEMS.map(({ id, label }) => (
+            <button
+              key={id}
+              className={`nav__item ${view === id ? 'nav__item--active' : ''}`}
+              onClick={() => navigateTo(id)}
+              aria-current={view === id ? 'page' : undefined}
+            >
+              {label}
+              {id === 'sensors' && sensors.length > 0 && (
+                <span className="nav__badge">{sensors.length}</span>
+              )}
+              {id === 'alerts' && alerts.length > 0 && (
+                <span className="nav__badge nav__badge--danger-bg">{alerts.length}</span>
+              )}
+            </button>
+          ))}
+        </nav>
+      </header>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <main className="main">
+        {view === 'sensors' && <SensorsPage />}
+        {view === 'reading' && <SensorReadingsPage />}
+        {view === 'alerts' && <AlertsPage />}
+      </main>
+    </div>
+  );
 }
-
-export default App

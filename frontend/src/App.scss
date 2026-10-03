@@ -1,0 +1,426 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+// ─── Design tokens ─────────────────────────────────────────────────────────────
+$ink:         #0f1a14;
+$ink-mid:     #3a4f40;
+$ink-light:   #6b8070;
+$surface:     #f4f1ea;
+$surface-2:   #ece9e1;
+$surface-3:   #e0ddd4;
+$accent:      #1a6640;
+$accent-dim:  #e8f0eb;
+$danger:      #8b2020;
+$danger-dim:  #f5e8e8;
+$gold:        #b5862a;
+$blue:        #2a5d8b;
+
+$radius:      4px;
+$radius-lg:   8px;
+$mono:        'IBM Plex Mono', monospace;
+$sans:        'IBM Plex Sans', sans-serif;
+$shadow:      0 1px 3px rgba($ink, .10), 0 4px 12px rgba($ink, .06);
+$shadow-lg:   0 2px 8px rgba($ink, .12), 0 8px 24px rgba($ink, .08);
+
+// ─── Reset ─────────────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: $sans;
+  background: $surface;
+  color: $ink;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  justify-content: center;
+}
+
+// ─── App shell ─────────────────────────────────────────────────────────────────
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+// ─── Header ────────────────────────────────────────────────────────────────────
+.header {
+  background: $ink;
+  color: $surface;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2px solid $accent;
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-shrink: 0;
+  }
+
+  &__name {
+    font-family: $mono;
+    font-size: .9rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: lowercase;
+    color: #d4cfc4;
+  }
+}
+
+.hamburger { display: none; }
+
+// ─── Nav ───────────────────────────────────────────────────────────────────────
+.nav {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  margin-left: auto;
+
+  &__item {
+    position: relative;
+    background: none;
+    border: none;
+    color: #8fa398;
+    font-family: $sans;
+    font-size: .8rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    padding: 0 1.1rem;
+    cursor: pointer;
+    transition: color .15s, background .15s;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    white-space: nowrap;
+
+    &:hover { color: $surface; background: rgba(#fff, .06); }
+
+    &--active {
+      color: $surface;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: .6rem; right: .6rem;
+        height: 2px;
+        background: $accent;
+        border-radius: 2px 2px 0 0;
+      }
+    }
+  }
+
+  &__badge {
+    background: $accent;
+    color: #fff;
+    font-family: $mono;
+    font-size: .65rem;
+    font-weight: 500;
+    padding: 1px 5px;
+    border-radius: 10px;
+    line-height: 1.4;
+      &--danger-bg{
+        background: $danger;
+      }
+  }
+}
+
+// ─── Main ──────────────────────────────────────────────────────────────────────
+.main { display: flex; justify-content: center; padding: 3rem 1.5rem; }
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page { width: 100%; max-width: 640px; animation: pageFade .2s ease; }
+
+.page-title {
+  font-family: $sans;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: $ink-mid;
+  margin-bottom: 1.75rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid $surface-3;
+}
+
+// ─── Form ──────────────────────────────────────────────────────────────────────
+.app-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.form-group { display: flex; flex-direction: column; gap: .4rem; }
+
+.form-label {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: $ink-light;
+}
+
+.form-input, .form-select {
+  font-family: $mono;
+  font-size: .875rem;
+  color: $ink;
+  background: #fff;
+  border: 1px solid $surface-3;
+  border-radius: $radius;
+  padding: .625rem .875rem;
+  transition: border-color .15s, box-shadow .15s;
+  appearance: none;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    box-shadow: 0 0 0 3px rgba($accent, .12);
+  }
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b8070' d='M6 8 0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .875rem center;
+  padding-right: 2.25rem;
+  cursor: pointer;
+}
+
+.form-hint {
+  font-size: .775rem;
+  color: $ink-light;
+  background: $surface-2;
+  border-left: 3px solid $surface-3;
+  padding: .5rem .75rem;
+  border-radius: 0 $radius $radius 0;
+  line-height: 1.5;
+}
+
+.form-error {
+  font-size: .825rem;
+  color: $danger;
+  background: $danger-dim;
+  border: 1px solid rgba($danger, .15);
+  border-radius: $radius;
+  padding: .55rem .875rem;
+}
+
+.form-success {
+  font-size: .825rem;
+  color: $accent;
+  background: $accent-dim;
+  border: 1px solid rgba($accent, .2);
+  border-radius: $radius;
+  padding: .55rem .875rem;
+}
+
+.form-submit {
+  font-family: $sans;
+  font-size: .825rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: #fff;
+  background: $accent;
+  border: none;
+  border-radius: $radius;
+  padding: .75rem 1.5rem;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  align-self: flex-start;
+  margin-top: .25rem;
+
+  &:hover  { background: darken($accent, 8%); }
+  &:active { transform: translateY(1px); }
+  &:disabled { opacity: .5; cursor: not-allowed; }
+}
+
+// ─── Shared empty state ─────────────────────────────────────────────────────────
+.empty-state {
+  font-size: .875rem;
+  color: $ink-light;
+  text-align: center;
+  padding: 3rem 1rem;
+  border: 1px dashed $surface-3;
+  border-radius: $radius-lg;
+}
+
+// ─── Sensor cards ──────────────────────────────────────────────────────────────
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.sensor-card {
+  background: #fff;
+  border: 1px solid $surface-3;
+  border-radius: $radius-lg;
+  box-shadow: $shadow;
+  overflow: hidden;
+  transition: box-shadow .15s, transform .15s;
+
+  &:hover { box-shadow: $shadow-lg; transform: translateY(-1px); }
+
+  &--temperature { border-top: 3px solid $danger; }
+  &--humidity { border-top: 3px solid $blue; }
+  &--atmospheric_pressure { border-top: 3px solid $gold; }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .75rem 1rem;
+    background: $surface-2;
+    border-bottom: 1px solid $surface-3;
+  }
+
+  &__type {
+    font-size: .65rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: $ink-light;
+
+    .sensor-card--temperature & { color: $danger; }
+    .sensor-card--humidity & { color: $blue; }
+    .sensor-card--atmospheric_pressure & { color: $gold; }
+  }
+
+  &__id {
+    font-family: $mono;
+    font-size: .65rem;
+    color: $ink-light;
+  }
+
+  &__body { padding: 1rem; }
+
+  &__name {
+    font-size: .95rem;
+    font-weight: 500;
+    color: $ink;
+  }
+}
+
+// ─── Alerts list ───────────────────────────────────────────────────────────────
+.alert-list { display: flex; flex-direction: column; gap: .6rem; }
+
+.alert-card {
+  background: #fff;
+  border: 1px solid $surface-3;
+  border-left: 3px solid $danger;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  padding: .75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  &__message { font-size: .875rem; color: $ink; }
+
+  &__meta {
+    font-family: $mono;
+    font-size: .7rem;
+    color: $ink-light;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  &:hover { box-shadow: $shadow-lg; transform: translateY(-1px); }
+}
+
+// ─── Loading ───────────────────────────────────────────────────────────────────
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 1rem;
+  color: $ink-light;
+  font-size: .825rem;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid $surface-3;
+  border-top-color: $accent;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+// ─── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 600px) {
+  .header { padding: 0 1rem; gap: 0; &__name { display: none; } }
+  .nav__item { padding: 0 .65rem; font-size: .75rem; }
+  .main { padding: 2rem 1rem; }
+}
+
+@media (max-width: 500px) {
+  .header {
+    padding: 0 1rem;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 56px;
+    &__name { display: none; }
+  }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: .5rem;
+    width: 36px;
+    height: 36px;
+
+    span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #8fa398;
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s;
+      transform-origin: center;
+    }
+
+    &--open {
+      span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      span:nth-child(2) { opacity: 0; }
+      span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    }
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: .5rem 0;
+    border-top: 1px solid rgba(#fff, .08);
+
+    &--open { display: flex; }
+
+    &__item {
+      padding: .75rem 1rem;
+      font-size: .875rem;
+      justify-content: flex-start;
+      &--active::after { display: none; }
+      &--active { background: rgba(#fff, .06); }
+    }
+  }
+}

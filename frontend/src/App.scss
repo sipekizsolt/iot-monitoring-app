@@ -320,7 +320,6 @@ body {
 .alert-card {
   background: #fff;
   border: 1px solid $surface-3;
-  border-left: 3px solid $danger;
   border-radius: $radius;
   box-shadow: $shadow;
   padding: .75rem 1rem;
@@ -340,6 +339,10 @@ body {
   }
 
   &:hover { box-shadow: $shadow-lg; transform: translateY(-1px); }
+
+  &--temperature { border-left: 5px solid $danger; }
+  &--humidity { border-left: 5px solid $blue; }
+  &--atmospheric_pressure { border-left: 5px solid $gold; }
 }
 
 // ─── Loading ───────────────────────────────────────────────────────────────────

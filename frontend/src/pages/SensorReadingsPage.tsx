@@ -92,10 +92,6 @@ export function SensorReadingsPage() {
           />
         </div>
 
-        <div className="form-hint">
-          Submitted readings are evaluated immediately — out-of-range values may raise an alert.
-        </div>
-
         {error && <p className="form-error">{error}</p>}
         {success && <p className="form-success">{success}</p>}
 

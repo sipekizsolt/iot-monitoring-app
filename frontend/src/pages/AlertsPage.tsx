@@ -1,4 +1,5 @@
 import { useAlerts } from '../hooks/useAlerts';
+import { useSensors } from '../hooks/useSensors';
 import { Spinner } from '../components/Spinner';
 
 interface AlertsPageProps {
@@ -7,7 +8,8 @@ interface AlertsPageProps {
 
 export function AlertsPage({ filterSensorId }: AlertsPageProps) {
   const { alerts, loading, error } = useAlerts();
-
+  const { sensors } = useSensors();
+  
   if (loading) return <div className="page"><Spinner label="Loading alerts..." /></div>;
   if (error) return <div className="page"><p className="form-error">{error}</p></div>;
 
@@ -31,7 +33,7 @@ export function AlertsPage({ filterSensorId }: AlertsPageProps) {
       </h2>
       <div className="alert-list">
         {visibleAlerts.map((alert) => (
-          <div key={alert.id} className="alert-card">
+          <div key={alert.id} className={`alert-card alert-card--${sensors.find(sensor => sensor.id === alert.sensorId)?.type.toLowerCase()}`}>
             <span className="alert-card__message">{alert.message}</span>
             <span className="alert-card__meta">
               {alert.sensorId.slice(0, 8)}<br />

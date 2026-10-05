@@ -15,7 +15,7 @@ export function AlertsPage({ filterSensorId }: AlertsPageProps) {
   ? alerts.filter((a) => a.sensorId === filterSensorId)
   : alerts;
 
-  if (alerts.length === 0) {
+  if (visibleAlerts.length === 0) {
     return (
       <div className="page">
         <h2 className="page-title">Alerts{filterSensorId && ` — Sensor ${filterSensorId.slice(0, 8)}`}</h2>
@@ -26,9 +26,11 @@ export function AlertsPage({ filterSensorId }: AlertsPageProps) {
 
   return (
     <div className="page">
-      <h2 className="page-title">Alerts{filterSensorId && ` — Sensor ${filterSensorId.slice(0, 8)}`}</h2>
+      <h2 className="page-title">
+        Alerts{filterSensorId && ` — Sensor ${filterSensorId.slice(0, 8)}`}
+      </h2>
       <div className="alert-list">
-        {alerts.map((alert) => (
+        {visibleAlerts.map((alert) => (
           <div key={alert.id} className="alert-card">
             <span className="alert-card__message">{alert.message}</span>
             <span className="alert-card__meta">

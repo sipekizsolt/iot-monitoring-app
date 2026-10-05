@@ -7,8 +7,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: monitoring
-      POSTGRES_USER: monitoring_user
-      POSTGRES_PASSWORD: IOT123!
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
      - "5432:5432"
 

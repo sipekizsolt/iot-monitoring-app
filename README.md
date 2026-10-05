@@ -17,7 +17,7 @@ test classes to run).
 - During development, "spring.jpa.hibernate.ddl-auto=update" was used to inspect data in the db.
 
 **Backend**:
-- An .env file is being used for variables DB_USERNAME, DB_PASSWORD and DB_URL. The file needs to be created in folder backend/ to run the app locally.
+- An .env file is being used for variables DB_USERNAME, DB_PASSWORD, DB_URL and SPRING_JPA_HIBERNATE_DDL_AUTO. The file needs to be created in folder backend/ to run the app locally.
 - Improvement ideas: 
     - add sensorType to alertDto
     - create configurable services for alerts based on sensorReading thresholds/business rules

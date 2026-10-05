@@ -306,6 +306,12 @@ body {
     font-weight: 500;
     color: $ink;
   }
+
+  &__body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 // ─── Alerts list ───────────────────────────────────────────────────────────────

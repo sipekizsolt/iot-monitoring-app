@@ -1,7 +1,12 @@
 import { useSensors } from '../hooks/useSensors';
 import { Spinner } from '../components/Spinner';
+import { AlertButton } from '../components/AlertButton';
 
-export function SensorsPage() {
+interface SensorsPageProps {
+  onViewAlerts: (sensorId: string) => void;
+}
+
+export function SensorsPage({ onViewAlerts }: SensorsPageProps) {
   const { sensors, loading, error } = useSensors();
 
   if (loading) return <div className="page"><Spinner label="Loading sensors..." /></div>;
@@ -24,10 +29,10 @@ export function SensorsPage() {
           <div key={sensor.id} className={`sensor-card sensor-card--${sensor.type.toLowerCase()}`}>
             <div className="sensor-card__header">
               <span className="sensor-card__type">{sensor.type.replace('_', ' ')}</span>
-              <span className="sensor-card__id">{sensor.id.slice(0, 8)}</span>
             </div>
             <div className="sensor-card__body">
               <p className="sensor-card__name">{sensor.name}</p>
+              <AlertButton sensorId={sensor.id} onClick={onViewAlerts}/>
             </div>
           </div>
         ))}

@@ -17,12 +17,14 @@ const NAV_ITEMS: { id: View; label: string }[] = [
 export default function App() {
   const [view, setView] = useState<View>('sensors');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [alertsFilterSensorId, setAlertsFilterSensorId] = useState<string | null>(null);
   const { sensors } = useSensors();
   const { alerts } = useAlerts();
 
-  const navigateTo = (v: View) => {
+  const navigateTo = (v: View, sensorId: string | null = null) => {
     setView(v);
     setMenuOpen(false);
+    setAlertsFilterSensorId(sensorId);
   };
 
   return (
@@ -62,9 +64,9 @@ export default function App() {
       </header>
 
       <main className="main">
-        {view === 'sensors' && <SensorsPage />}
+        {view === 'sensors' && <SensorsPage onViewAlerts={(sensorId) => navigateTo('alerts', sensorId)}/>}
         {view === 'reading' && <SensorReadingsPage />}
-        {view === 'alerts' && <AlertsPage />}
+        {view === 'alerts' && <AlertsPage filterSensorId={alertsFilterSensorId} />}
       </main>
     </div>
   );

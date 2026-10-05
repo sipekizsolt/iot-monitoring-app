@@ -12,18 +12,18 @@ test classes to run).
 
 # Solution
 
-Notes:
+**Notes**:
 - Live demo: https://sipekizsolt.hu/iot-monitoring/ (Kafka does not work here)
 - During development, "spring.jpa.hibernate.ddl-auto=update" was used to inspect data in the db.
 
-Backend:
+**Backend**:
 - An .env file is being used for variables DB_USERNAME, DB_PASSWORD and DB_URL. The file needs to be created in folder backend/ to run the app locally.
 - Improvement ideas: 
     - add sensorType to alertDto
     - create configurable services for alerts based on sensorReading thresholds/business rules
     - add endpoints for CRUD operations to manage records from the frontend.
 
-Frontend:
+**Frontend**:
 - React was used instead of Angular (as discussed on Teams)
 - An .env.development and an .env.production file were created to separate dev and live hosts. No need to create new file for running locally.
 - Improvement ideas: 

@@ -8,7 +8,7 @@ describe('fetchSensors', () => {
 
   it('returns sensors on success', async () => {
     const mockData = [{ id: '1', name: 'Temp Sensor', type: 'TEMPERATURE' }];
-    global.fetch = vi.fn().mockResolvedValue({
+    globalThis.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => mockData,
     }) as unknown as typeof fetch;
@@ -18,7 +18,7 @@ describe('fetchSensors', () => {
   });
 
   it('throws on failed response', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
+    globalThis.fetch = vi.fn().mockResolvedValue({
       ok: false,
       status: 500,
     }) as unknown as typeof fetch;

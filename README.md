@@ -28,6 +28,7 @@ test classes to run).
 - An .env.development and an .env.production file were created to separate dev and live hosts. No need to create new file for running locally.
 - Improvement ideas: 
     - scalability:
+        - as the number of state changes grow, refactor to useReducer
         - implement pagination in case of big amount of alerts
         - avoid re-rendering on each incoming data - query db only when needed
         - add filtering possibility for Sensors and Alerts

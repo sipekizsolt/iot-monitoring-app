@@ -13,7 +13,9 @@ test classes to run).
 # Solution
 
 **Notes**:
-- Live demo: https://sipekizsolt.hu/iot-monitoring/ (Kafka does not work here)
+- Live demo: https://sipekizsolt.hu/iot-monitoring/
+    - Loading of the backend might take up to 30-60 seconds until the host 'wakes up' (free tier Render)
+    - Kafka does not work here
 - During development, "spring.jpa.hibernate.ddl-auto=update" was used to inspect data in the db.
 
 **Backend**:
